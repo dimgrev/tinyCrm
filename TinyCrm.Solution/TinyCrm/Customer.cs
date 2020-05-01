@@ -17,7 +17,8 @@ namespace TinyCrm
         public string Phone { get; set; }
         public bool IsActive { get; set; }
         public int Age { get; set; }
-        public decimal TotalGross { get; private set; }//Ara h get menei public
+        public List<Product> OrderList { get; set; }
+        public decimal TotalGross { get; set; }//Ara h get menei public
 
         //Constractor
         public Customer(string vatNumber)
