@@ -24,6 +24,18 @@ namespace TinyCrm
                 .Entity<Customer>()
                 .ToTable("Customer");
 
+            modelBuilder
+                .Entity<Product>()
+                .ToTable("Product")
+                .Ignore("OrderList");
+
+            modelBuilder
+                .Entity<Order>()
+                .ToTable("Order")
+                .Ignore("ProductList");
+            //modelBuilder
+            //    .Entity<Product>()
+            //    .ToTable("Product"); //kai pali migration
         }
     }
 }

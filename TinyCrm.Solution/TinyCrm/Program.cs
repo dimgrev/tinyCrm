@@ -11,37 +11,59 @@ namespace TinyCrm
     {
         static void Main(string[] args)
         {
+            string[] csvList;
+            try
+            {
+                csvList = File.ReadAllLines("Product.csv").Skip(1).ToArray();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
             var tinyCrmDbContext = new TinyCrmDbContext();
 
-            // Insert
-            var customer = new Customer()
+            if (csvList.Length == 0)
             {
-                Firstname = "Dimitris",
-                Lastname = "Grevenos",
-                Email = "Dimitrisgr@outlook.com",
+                return;
+            }
+            else
+            {
+                //Insert Data To database
+                var listOfProducts = new List<Product>();
 
-            };
+                for (int i = 0; i < csvList.Length; i++)
+                {
+                    var values = csvList[i].Split(';');
+                    var duplicateId = Guid.Parse(values[0]);
 
-            tinyCrmDbContext.Add(customer);
-            tinyCrmDbContext.SaveChanges();
+                    var dl = listOfProducts.Where(x => x.ProductId.Equals(duplicateId));
 
-            //Get Data  SingleOrDefault gia monadikes eggrafes enw FirsOrDefault gia ta alla
-            var customer2 = tinyCrmDbContext
-                .Set<Customer>()
-                //.ToList() //8a sou ferei oles tis eggrafes pou exei sto disko
-                .Where(x => x.CustomerId == customer.CustomerId)
-                .Where(x => x.Email == "Dimitrisgr@outlook.com");
+                    if (dl.Count() > 0 )
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        var product = new Product()
+                        {
+                            ProductId = Guid.Parse(values[0]),
+                            Name = values[1],
+                            Description = values[2],
+                            Price = Product.GetRndPrice()
+                        };
 
-            // Materialization function. !Set breakpoint above and then check Server Profiler
-            var results = customer2.SingleOrDefault();
+                        listOfProducts.Add(product);
 
-            //Update Entity (Set VatNumber)
-            results.VatNumber = "123456789";
-            tinyCrmDbContext.SaveChanges();
+                        tinyCrmDbContext.Add(product);
+                        tinyCrmDbContext.SaveChanges();
+                    }
 
-            //Delete an Entity
-            tinyCrmDbContext.Remove(customer2);
-            tinyCrmDbContext.SaveChanges();
+                }
+                
+                Console.WriteLine("Insert Raw Data into the DataBase Done Succesfully!");
+                Console.ReadLine();
+            }
 
         }
             
