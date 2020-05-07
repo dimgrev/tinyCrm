@@ -46,7 +46,7 @@ namespace TinyCrm
                 newCustomers = r.Where(w => w.VatNumber.Contains(value3)).ToList();
                 customers.AddRange(newCustomers);
             }
-            if (id >= 0)
+            if (id > 0)
             {
                 newCustomers = r.Where(w => w.CustomerId == id).ToList();
                 customers.AddRange(newCustomers);
@@ -57,8 +57,11 @@ namespace TinyCrm
                 customers.AddRange(newCustomers);
             }
 
-            customersResults = customers.Distinct().ToList();
-
+            if (customers != null)
+            {
+                customersResults = customers.Distinct().Take(500).ToList();
+            }
+            
             return customersResults;
         }
     }

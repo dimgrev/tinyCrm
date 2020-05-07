@@ -59,7 +59,7 @@ namespace TinyCrm
             var value3 = Console.ReadLine();
             Console.WriteLine("Search option Id! if you dont want to give any press enter.\n" +
                 " Insert Id:");
-            id = Convert.ToInt32(Console.ReadLine());
+            id = Convert.ToInt32(int.TryParse(Console.ReadLine(), out id));
             Console.WriteLine("Search option CreatedFrom! if you dont want to give any press enter.\n" +
                 " Insert CreatedFrom:");
             DateTime.TryParseExact(Console.ReadLine(), "yyyy.MM.dd", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out crFrom);
@@ -67,7 +67,14 @@ namespace TinyCrm
                 " Insert CreatedTo:");
             DateTime.TryParseExact(Console.ReadLine(), "yyyy.MM.dd", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out crTo);
             var results = Customer.SearchCustomers(value1, value2, value3, id, crFrom, crTo);
-            results.ForEach(i => Console.Write($"{i.Firstname}\t"));
+            if (results != null)
+            {
+                results.ForEach(i => Console.Write($"{i.Firstname}\t"));
+            }
+            else
+            {
+                Console.Write($"No given criteria\n");
+            }
             
         }
             
