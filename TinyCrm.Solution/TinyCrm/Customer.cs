@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TinyCrm
@@ -18,126 +19,47 @@ namespace TinyCrm
 
 
 
+        //Search Customers by Options
+        public static List<Customer> SearchCustomers(string value1, string value2, string value3, int id, DateTime crFrom, DateTime crTo)
+        {
+            var tinyCrmDbContext = new TinyCrmDbContext();
+            List<Customer> newCustomers = null;
+            List<Customer> customers = null;
+            List<Customer> customersResults = null;
 
+            var x = DateTime.Now;
 
+            var r = tinyCrmDbContext.Set<Customer>();
 
+            if (!string.IsNullOrWhiteSpace(value1))
+            {
+                newCustomers = r.Where(w => w.Firstname.Contains(value1)).ToList();
+                customers = newCustomers;
+            }
+            if (!string.IsNullOrWhiteSpace(value2))
+            {
+                newCustomers = r.Where(w => w.Lastname.Contains(value2)).ToList();
+                customers.AddRange(newCustomers);
+            }
+            if (!string.IsNullOrWhiteSpace(value3))
+            {
+                newCustomers = r.Where(w => w.VatNumber.Contains(value3)).ToList();
+                customers.AddRange(newCustomers);
+            }
+            if (id >= 0)
+            {
+                newCustomers = r.Where(w => w.CustomerId == id).ToList();
+                customers.AddRange(newCustomers);
+            }
+            if (crTo < DateTime.Now && crFrom > DateTime.MinValue)
+            {
+                newCustomers = r.Where(w => w.Created > crFrom && w.Created < crTo).ToList();
+                customers.AddRange(newCustomers);
+            }
 
-        ////propfull tab tab with getter and setter
-        ////public static string Text = "This is a static text! that all objects has the same.";
-        //public Guid CustomerId { get; set; }
-        //public string Email { get; set; } //prop tab tab
-        //public string VatNumber { get; set; }
-        //private string FirstName { get; set; }//Getter & Setter underneath (beneath)
-        //private string LastName { get; set; }
-        //public DateTime CreatedDate { get; private set; }
-        //public string Phone { get; set; }
-        //public bool IsActive { get; set; }
-        //public int Age { get; set; }
-        //public List<Product> OrderList { get; set; }
-        //public decimal TotalGross { get; set; }//Ara h get menei public
+            customersResults = customers.Distinct().ToList();
 
-        ////Constractor
-        //public Customer(string vatNumber)
-        //{
-        //    if (IsValidVatNumber(vatNumber))
-        //    {
-        //        this.VatNumber = vatNumber;
-        //        this.CreatedDate = DateTime.Now;//Trexousa hmera kai wra
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("VatNumber is invalid");
-        //    }
-
-        //}
-        ////Constractor not nesessary but if is it show it must be declared the property
-        ////public Customer(string vatNumber)
-        ////{
-        ////    VatNumber = vatNumber;
-        ////}
-
-        ////public bool IsHighValueCustomer()
-        ////{
-        ////    return TotalGross > 10000M;
-        ////}
-
-        ////public void SetPhone(string phone)
-        ////{
-        ////    Phone = phone;
-        ////}
-
-
-        //////Setter &
-        ////public void SetFirstName(string firstName)
-        ////{
-        ////    this.FirstName = firstName;
-        ////}
-        //////Getter
-        ////public string GetFirstName()
-        ////{
-        ////    return this.FirstName;
-        ////}
-
-        //public bool IsValidVatNumber(string vatNumber)
-        //{
-        //    if (string.IsNullOrWhiteSpace(vatNumber))
-        //    {
-        //        return false;
-        //    }
-        //    vatNumber = vatNumber.Trim();
-        //    if (vatNumber.Length == 9)
-        //    {
-        //        foreach (char y in vatNumber)
-        //        {
-        //            if (y < '0' || y > '9')
-        //                return false;
-        //        }
-
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-
-        //public bool IsValidEmail()
-        //{
-        //    var x = default(int);// value = 0 in string = null and in bool = false
-        //    if (!string.IsNullOrWhiteSpace(Email))
-        //    {
-        //        Email = Email.Trim();
-        //        foreach (var i in Email)
-        //        {
-        //            if (i == '@')
-        //            {
-        //                x++;
-        //            }
-        //        }
-        //        if (x == 1)
-        //        {
-        //            if (Email.EndsWith(".com") || Email.EndsWith(".gr"))
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //public bool IsAdult()
-        //{
-        //    return Age >= 18;
-        //}
-
-        //public static Customer CreateCustomer(string vatNumber)
-        //{
-        //    return new Customer(vatNumber);
-        //}
+            return customersResults;
+        }
     }
 }
