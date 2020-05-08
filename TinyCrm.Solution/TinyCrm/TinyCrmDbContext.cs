@@ -26,16 +26,11 @@ namespace TinyCrm
 
             modelBuilder
                 .Entity<Product>()
-                .ToTable("Product")
-                .Ignore("OrderList");
+                .ToTable("Product");
 
             modelBuilder
                 .Entity<Order>()
-                .ToTable("Order")
-                .Ignore("ProductList");
-            //modelBuilder
-            //    .Entity<Product>()
-            //    .ToTable("Product"); //kai pali migration
+                .ToTable("Order");
         }
     }
 }

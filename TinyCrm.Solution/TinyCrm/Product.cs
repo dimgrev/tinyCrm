@@ -7,12 +7,11 @@ namespace TinyCrm
 {
     public class Product
     {
-        public Guid ProductId { get; set; }
+        public string ProductId { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public string ProductCategory { get; set; }
-        public List<Order> OrderList { get; set; }
+        public ProductCategory Category { get; set; }
 
 
 
@@ -36,7 +35,7 @@ namespace TinyCrm
         }
 
 
-        public static List<Product> SearchProducts(string value1, string value2, decimal priceFrom, decimal priceTo)
+        public static List<Product> SearchProductsO(string value1, string value2, decimal priceFrom, decimal priceTo)
         {
             var tinyCrmDbContext = new TinyCrmDbContext();
             List<Product> newProducts = null;
@@ -54,7 +53,7 @@ namespace TinyCrm
             }
             if (!string.IsNullOrWhiteSpace(value2))
             {
-                newProducts = r.Where(w => w.ProductCategory.Contains(value2)).ToList();
+                //newProducts = r.Where(w => w.Category.Contains(value2)).ToList();
                 products.AddRange(newProducts);
             }
             if (priceTo < 150 && priceFrom > 0)
@@ -66,6 +65,32 @@ namespace TinyCrm
             productsResults = products.Distinct().ToList();
 
             return productsResults;
+        }
+
+        public static IQueryable<Product> SearchProducts(SearchProductOptions options)
+        {
+            if (options == null)
+            {
+                return null;
+            }
+
+            using (var dbcontex = new TinyCrmDbContext())
+            {
+                var iQuery = dbcontex.Set<Product>().AsQueryable();
+
+                if (options.ProductId != null)
+                {
+                    //iQuery = iQuery.Where(c => c.ProductId == options.ProductId); // Sth bash to kanei me ignore case
+                }
+                if (!string.IsNullOrWhiteSpace(options.ProductCategory))
+                {
+                    //iQuery = iQuery.Where(c => c.ProductCategory.Contains(options.ProductCategory));
+                }
+
+                iQuery = iQuery.Take(500);
+
+                return iQuery;
+            }
         }
     }
 }

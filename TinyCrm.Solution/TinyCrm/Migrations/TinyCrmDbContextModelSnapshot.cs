@@ -54,9 +54,13 @@ namespace TinyCrm.Migrations
 
             modelBuilder.Entity("TinyCrm.Order", b =>
                 {
-                    b.Property<Guid>("OrderId")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
@@ -76,11 +80,10 @@ namespace TinyCrm.Migrations
 
             modelBuilder.Entity("TinyCrm.Product", b =>
                 {
-                    b.Property<Guid>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("Category")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -92,27 +95,15 @@ namespace TinyCrm.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("ProductCategory")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ProductId");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Product");
                 });
 
             modelBuilder.Entity("TinyCrm.Order", b =>
                 {
-                    b.HasOne("TinyCrm.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-                });
-
-            modelBuilder.Entity("TinyCrm.Product", b =>
-                {
                     b.HasOne("TinyCrm.Customer", null)
-                        .WithMany("OrderList")
+                        .WithMany("Orders")
                         .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618

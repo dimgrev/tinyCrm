@@ -15,54 +15,53 @@ namespace TinyCrm
         public string VatNumber { get; set; }
         public decimal TotalGross { get; private set; }
         public bool IsActive { get; set; }
-        public List<Product> OrderList { get; set; }
+        public List<Order> Orders { get; set; }
 
-
+        public Customer()
+        {
+            Orders = new List<Order>();
+        }
 
         //Search Customers by Options
-        public static List<Customer> SearchCustomers(string value1, string value2, string value3, int id, DateTime crFrom, DateTime crTo)
+
+        public static IQueryable<Customer> SearchCustomers(SearchCustomerOptions options)
         {
-            var tinyCrmDbContext = new TinyCrmDbContext();
-            List<Customer> newCustomers = null;
-            List<Customer> customers = null;
-            List<Customer> customersResults = null;
-
-            var x = DateTime.Now;
-
-            var r = tinyCrmDbContext.Set<Customer>();
-
-            if (!string.IsNullOrWhiteSpace(value1))
+            if (options == null)
             {
-                newCustomers = r.Where(w => w.Firstname.Contains(value1)).ToList();
-                customers = newCustomers;
-            }
-            if (!string.IsNullOrWhiteSpace(value2))
-            {
-                newCustomers = r.Where(w => w.Lastname.Contains(value2)).ToList();
-                customers.AddRange(newCustomers);
-            }
-            if (!string.IsNullOrWhiteSpace(value3))
-            {
-                newCustomers = r.Where(w => w.VatNumber.Contains(value3)).ToList();
-                customers.AddRange(newCustomers);
-            }
-            if (id > 0)
-            {
-                newCustomers = r.Where(w => w.CustomerId == id).ToList();
-                customers.AddRange(newCustomers);
-            }
-            if (crTo < DateTime.Now && crFrom > DateTime.MinValue)
-            {
-                newCustomers = r.Where(w => w.Created > crFrom && w.Created < crTo).ToList();
-                customers.AddRange(newCustomers);
+                return null;
             }
 
-            if (customers != null)
+            using (var dbcontex = new TinyCrmDbContext())
             {
-                customersResults = customers.Distinct().Take(500).ToList();
+                var iQuery = dbcontex.Set<Customer>().AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(options.Firstname))
+                {
+                    iQuery = iQuery.Where(c => c.Firstname.Contains(options.Firstname)); // Sth bash to kanei me ignore case
+                }
+                if (!string.IsNullOrWhiteSpace(options.Lastname))
+                {
+                    iQuery = iQuery.Where(c => c.Firstname.Contains(options.Lastname));
+                }
+                if (!string.IsNullOrWhiteSpace(options.VatNumber))
+                {
+                    iQuery = iQuery.Where(c => c.Firstname == options.VatNumber); // Sth bash to kanei me ignore case
+                }
+                if (options.CustomerId != null)
+                {
+                    iQuery = iQuery.Where(c => c.CustomerId == options.CustomerId);
+                }
+                if (options.CreatedFrom > DateTime.MinValue && options.CreatedTo < DateTime.Now)
+                {
+                    iQuery = iQuery.Where(c => c.Created > options.CreatedFrom && c.Created < options.CreatedTo);
+                }
+
+                var newQuery = iQuery.Select(c => new { c.CustomerId, c.Email });
+                iQuery = iQuery.Take(500);
+
+                return iQuery;
             }
-            
-            return customersResults;
+
         }
     }
 }
