@@ -4,7 +4,7 @@ namespace TinyCrm.Core.Services.Options
 {
     public class SearchCustomerOptions
     {
-        public int? CustomerId { get; private set; }
+        public int? CustomerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

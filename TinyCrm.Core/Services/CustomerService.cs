@@ -30,6 +30,7 @@ namespace TinyCrm.Core.Services
                 Email = options.Email,
                 VatNumber = options.VatNumber,
                 Phone = options.Phone,
+                IsActive = options.IsActive,
             };
 
             context_.Add(customer);
