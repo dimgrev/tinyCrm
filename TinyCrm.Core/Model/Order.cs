@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TinyCrm.Core.Model
 {
@@ -17,6 +16,5 @@ namespace TinyCrm.Core.Model
             Created = DateTimeOffset.Now;
             OrderProducts = new List<OrderProduct>();
         }
-
     }
 }

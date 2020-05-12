@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCrm", "TinyCrm\TinyCrm.csproj", "{94EE69C5-C8A4-4F56-AEA8-9FE809F4D409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCrm.Core", "TinyCrm\tinyCrm.Core\TinyCrm.Core.csproj", "{1239744C-177B-4AD6-9EF8-7F27302B78A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCrm.Core", "..\TinyCrm.Core\TinyCrm.Core.csproj", "{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{94EE69C5-C8A4-4F56-AEA8-9FE809F4D409}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94EE69C5-C8A4-4F56-AEA8-9FE809F4D409}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94EE69C5-C8A4-4F56-AEA8-9FE809F4D409}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1239744C-177B-4AD6-9EF8-7F27302B78A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1239744C-177B-4AD6-9EF8-7F27302B78A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1239744C-177B-4AD6-9EF8-7F27302B78A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1239744C-177B-4AD6-9EF8-7F27302B78A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

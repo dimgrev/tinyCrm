@@ -1,4 +1,8 @@
-﻿namespace TinyCrm.Core.Model
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TinyCrm.Core.Model
 {
     public enum ProductCategory
     {

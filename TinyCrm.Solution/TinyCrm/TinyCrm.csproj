@@ -15,8 +15,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="tinyCrm.Core\TinyCrm.Core.csproj" />
-  </ItemGroup>
-
 </Project>

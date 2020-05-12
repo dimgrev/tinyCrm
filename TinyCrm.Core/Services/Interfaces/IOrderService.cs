@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 using TinyCrm.Core.Model;
 using TinyCrm.Core.Services.Options;
 
-namespace TinyCrm.Core.Services
+namespace TinyCrm.Core.Services.Interfaces
 {
-    public interface IOrderService
+    interface IOrderService
     {
         Order CreateOrder(
             CreateOrderOptions options);
-
+        IQueryable<Order> SearchOrders(
+            SearchOrderOptions options);
         bool UpdateOrder(
             UpdateOrderOptions options);
-
-        List<Order> SearchOrders(
-            SearchOrdersOptions options);
     }
 }

@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 using TinyCrm.Core.Model;
 
 namespace TinyCrm.Core.Data
 {
     public class TinyCrmDbContext : DbContext
     {
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -19,7 +16,6 @@ namespace TinyCrm.Core.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //Database.EnsureCreated();
 
             modelBuilder
                 .Entity<Customer>()
