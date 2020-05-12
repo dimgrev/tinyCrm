@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TinyCrm
+namespace TinyCrm.Core.Services.Options
 {
     public class SearchCustomerOptions
     {

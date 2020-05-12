@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TinyCrm.Core.Data;
+using TinyCrm.Core.Model;
+using TinyCrm.Core.Services.Options;
+using TinyCrm.Core.Services;
 
-namespace TinyCrm
+namespace TinyCrm.Core
 {
-    class CustomerService : ICustomerService
+    public class CustomerService : ICustomerService
     {
         private TinyCrmDbContext context_;
         public CustomerService(TinyCrmDbContext context) //Se ena constractor thn dbcontext
@@ -32,6 +36,11 @@ namespace TinyCrm
                 return customer;
             }
             return null;
+        }
+
+        public Customer GetCustomerById(GetCustomerByIdOptions options)
+        {
+            throw new NotImplementedException();
         }
 
         public IQueryable<Customer> SearchCustomers(
@@ -71,5 +80,11 @@ namespace TinyCrm
             return query;
 
         }
+
+        public Customer UpdateCustomer(UpdateCustomerOptions options)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
+

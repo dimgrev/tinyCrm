@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TinyCrm
+namespace TinyCrm.Core.Model
 {
     public class Order
     {

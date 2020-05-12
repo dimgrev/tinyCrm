@@ -1,4 +1,4 @@
-﻿namespace TinyCrm
+﻿namespace TinyCrm.Core.Model
 {
     public enum ProductCategory
     {

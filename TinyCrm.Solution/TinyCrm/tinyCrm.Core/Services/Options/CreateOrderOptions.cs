@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TinyCrm
+namespace TinyCrm.Core.Services.Options
 {
     public class CreateOrderOptions
     {
+        public string DeliveryAddress { get; set; }
         public int CustomerId { get; set; }
 
         public List<string> ProductsIds { get; set; }

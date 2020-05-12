@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyCrm.Core.Model;
 
-namespace TinyCrm
+namespace TinyCrm.Core.Data
 {
-    class TinyCrmDbContext : DbContext
+    public class TinyCrmDbContext : DbContext
     {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

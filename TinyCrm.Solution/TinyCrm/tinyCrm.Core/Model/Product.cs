@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TinyCrm.Core.Data;
 
-namespace TinyCrm
+namespace TinyCrm.Core.Model
 {
     public class Product
     {
@@ -67,30 +68,30 @@ namespace TinyCrm
             return productsResults;
         }
 
-        public static IQueryable<Product> SearchProducts(SearchProductOptions options)
-        {
-            if (options == null)
-            {
-                return null;
-            }
+        //public static IQueryable<Product> SearchProducts(SearchProductOptions options)
+        //{
+        //    if (options == null)
+        //    {
+        //        return null;
+        //    }
 
-            using (var dbcontex = new TinyCrmDbContext())
-            {
-                var iQuery = dbcontex.Set<Product>().AsQueryable();
+        //    using (var dbcontex = new TinyCrmDbContext())
+        //    {
+        //        var iQuery = dbcontex.Set<Product>().AsQueryable();
 
-                if (options.ProductId != null)
-                {
-                    //iQuery = iQuery.Where(c => c.ProductId == options.ProductId); // Sth bash to kanei me ignore case
-                }
-                if (!string.IsNullOrWhiteSpace(options.ProductCategory))
-                {
-                    //iQuery = iQuery.Where(c => c.ProductCategory.Contains(options.ProductCategory));
-                }
+        //        if (options.ProductId != null)
+        //        {
+        //            //iQuery = iQuery.Where(c => c.ProductId == options.ProductId); // Sth bash to kanei me ignore case
+        //        }
+        //        if (!string.IsNullOrWhiteSpace(options.ProductCategory))
+        //        {
+        //            //iQuery = iQuery.Where(c => c.ProductCategory.Contains(options.ProductCategory));
+        //        }
 
-                iQuery = iQuery.Take(500);
+        //        iQuery = iQuery.Take(500);
 
-                return iQuery;
-            }
-        }
+        //        return iQuery;
+        //    }
+        //}
     }
 }
