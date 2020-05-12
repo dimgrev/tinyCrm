@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCrm", "TinyCrm\TinyCrm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCrm.Core", "..\TinyCrm.Core\TinyCrm.Core.csproj", "{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCrm.Web", "..\TinyCrm.Web\TinyCrm.Web.csproj", "{15FF1CB9-2771-4D55-94B9-CEB9CEA37641}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F65A12DD-FB43-44C8-8840-EF30FB8C1E70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15FF1CB9-2771-4D55-94B9-CEB9CEA37641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15FF1CB9-2771-4D55-94B9-CEB9CEA37641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15FF1CB9-2771-4D55-94B9-CEB9CEA37641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15FF1CB9-2771-4D55-94B9-CEB9CEA37641}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
