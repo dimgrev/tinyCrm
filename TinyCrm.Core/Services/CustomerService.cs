@@ -111,7 +111,7 @@ namespace TinyCrm.Core.Services
                 .Set<Customer>()
                 .AsQueryable();
 
-            if (id >= 0)
+            if (id > 0)
             {
                 var customer = query.Where(c => c.CustomerId == id).SingleOrDefault();
                 customer.FirstName = options.FirstName;

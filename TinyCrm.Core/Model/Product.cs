@@ -14,6 +14,7 @@ namespace TinyCrm.Core.Model
         public Product()
         {
             Created = DateTime.Now;
+            Price = Product.GetRndPrice();
         }
 
         public static decimal GetRndPrice()

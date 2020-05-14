@@ -14,5 +14,6 @@ namespace TinyCrm.Core.Services.Interfaces
             int id, UpdateCustomerOptions options);
         IQueryable<Customer> GetCustomerById(
             int id);
+
     }
 }

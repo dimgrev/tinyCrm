@@ -33,7 +33,7 @@ namespace TinyCrm.Core.Services
 
             var customer = customers_.GetCustomerById(options.CustomerId).SingleOrDefault();
 
-            if (customers_ == null)
+            if (customer == null)
             {
                 return null;
             }
@@ -43,7 +43,7 @@ namespace TinyCrm.Core.Services
                 DeliveryAddress = options.DeliveryAddress,
             };
 
-            var products = new List<Product>();
+            //var products = new List<Product>();
 
             foreach (var item in options.ProductIds)
             {
@@ -55,6 +55,8 @@ namespace TinyCrm.Core.Services
                     {
                         Product = pResult,
                     };
+
+                    order.TotalAmount += pResult.Price;
 
                     order.OrderProducts.Add(orderProduct);
                 }
