@@ -15,5 +15,7 @@ namespace TinyCrm.Core.Services.Interfaces
         IQueryable<Customer> GetCustomerById(
             int id);
 
+        bool DeleteCustomer(
+            int id);
     }
 }

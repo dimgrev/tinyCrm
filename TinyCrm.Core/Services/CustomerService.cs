@@ -23,6 +23,11 @@ namespace TinyCrm.Core.Services
                 return null;
             }
 
+            if (string.IsNullOrWhiteSpace(options.VatNumber))
+            {
+                return null;
+            }
+
             var customer = new Customer()
             {
                 FirstName = options.FirstName,
@@ -82,7 +87,7 @@ namespace TinyCrm.Core.Services
 
             if (options.CustomerId != null)
             {
-                query = query.Where(c => c.CustomerId == options.CustomerId.Value);
+                query = query.Where(c => c.CustomerId == options.CustomerId);
             }
 
             if (options.CreateFrom != null)
@@ -118,6 +123,36 @@ namespace TinyCrm.Core.Services
                 customer.LastName = options.LastName;
                 customer.Email = options.Email;
                 customer.IsActive = options.IsActive;
+
+                if (context_.SaveChanges() > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteCustomer(int id)
+        {
+            if (id == 0)
+            {
+                return false;
+            }
+
+            var query = context_
+                .Set<Customer>()
+                .AsQueryable();
+
+            if (id > 0)
+            {
+                var customer = query.Where(c => c.CustomerId == id).SingleOrDefault();
+
+                context_.Remove(customer);
 
                 if (context_.SaveChanges() > 0)
                 {
