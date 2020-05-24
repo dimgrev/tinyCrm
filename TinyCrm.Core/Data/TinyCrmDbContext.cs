@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 using TinyCrm.Core.Model;
 
 namespace TinyCrm.Core.Data

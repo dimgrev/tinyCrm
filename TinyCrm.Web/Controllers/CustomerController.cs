@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using TinyCrm.Core.Data;
-using TinyCrm.Core.Model;
-using TinyCrm.Core.Services;
 using TinyCrm.Core.Services.Interfaces;
 using TinyCrm.Core.Services.Options;
 
 namespace TinyCrm.Web.Controllers
 {
+    [Route("Customer")]
     public class CustomerController : Controller
     {
-        private TinyCrmDbContext dbcontext_;
+        //private TinyCrmDbContext dbcontext_;
         private ICustomerService customerService_;
-        public CustomerController()
+        public CustomerController(ICustomerService customerService)
         {
-            dbcontext_ = new TinyCrmDbContext();
-            customerService_ = new CustomerService(dbcontext_);
+            //dbcontext_ = new TinyCrmDbContext();
+            customerService_ = customerService; //new CustomerService(dbcontext_);
         }
 
         [HttpPost]
@@ -26,25 +21,49 @@ namespace TinyCrm.Web.Controllers
         {
             var result = customerService_.CreateCustomer(options);
 
-            if (result == null)
+            if (!result.Success)
             {
-                return NoContent();
+                return StatusCode((int)result.ErrorCode,
+                    result.ErrorText);
             }
 
-            return Json(result);
+            //if (result.ErrorCode == )
+            //{
+
+            //}
+
+            return Json(result.Data);
         }
 
-        [HttpPatch("Update{id}")]
+        [HttpPatch("{id}")]
         public IActionResult Update(int id, [FromBody] UpdateCustomerOptions options)
         {
             var result = customerService_.UpdateCustomer(id, options);
 
-            if (result == false)
+            if (!result)
             {
                 return BadRequest();
             }
 
-            return Json(result);
+            return Ok();
+        }
+
+        [HttpGet("edit/{id}")]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            var customer = customerService_
+                .SearchCustomers(new SearchCustomerOptions()
+                {
+                    CustomerId = id,
+                })
+                .SingleOrDefault();
+
+            return View(customer);
         }
 
         [HttpDelete]
@@ -60,7 +79,7 @@ namespace TinyCrm.Web.Controllers
             return Json(result);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Search(SearchCustomerOptions options)
         {
             var result = customerService_
@@ -70,6 +89,7 @@ namespace TinyCrm.Web.Controllers
             return Json(result);
         }
 
+        [HttpGet("{id}")]
         public IActionResult GetById(int? id)
         {
             //400 Bad Request
@@ -89,15 +109,16 @@ namespace TinyCrm.Web.Controllers
                 })
                 .SingleOrDefault();
 
-            if (customer == null)
-            {
-                return NotFound();
-            }
+            //if (customer == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Json(customer);
+            return View(customer);
         }
 
         //[HttpPost] se ti verb 8elw na apantaei h action (mono se auto)
+        [HttpGet]
         public IActionResult Index()
         {
             var customerList = customerService_

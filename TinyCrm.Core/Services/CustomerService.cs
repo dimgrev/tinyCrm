@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TinyCrm.Core.Data;
 using TinyCrm.Core.Model;
 using TinyCrm.Core.Services.Interfaces;
@@ -15,17 +16,27 @@ namespace TinyCrm.Core.Services
             context_ = context;
         }
 
-        public Customer CreateCustomer(
+        public Result<Customer> CreateCustomer(
             CreateCustomerOptions options)
         {
+            var result = new Result<Customer>();//Result typou customer
+            //result.Data.CustomerId = 1;////Gia paradeigma
+            
             if (options == null)
             {
-                return null;
+                return Result<Customer>.CreateFailed(StatusCode.BadRequest, "Null options");
+                // ^
+                //result.ErrorCode = StatusCode.BadRequest;
+                //result.ErrorText = "Null options";
+                //return result;
             }
 
             if (string.IsNullOrWhiteSpace(options.VatNumber))
             {
-                return null;
+                return Result<Customer>.CreateFailed(StatusCode.BadRequest, "Null or Empty VatNumber");
+                //result.ErrorCode = StatusCode.BadRequest;
+                //result.ErrorText = "Null or Empty VatNumber";
+                //return result;
             }
 
             var customer = new Customer()
@@ -35,17 +46,27 @@ namespace TinyCrm.Core.Services
                 Email = options.Email,
                 VatNumber = options.VatNumber,
                 Phone = options.Phone,
-                IsActive = options.IsActive,
+                IsActive = true
             };
 
             context_.Add(customer);
 
-            if (context_.SaveChanges() > 0)
+            var rows = 0;
+
+            try
             {
-                return customer;
+                rows = context_.SaveChanges();
+                if (rows <= 0)
+                {
+                    return Result<Customer>.CreateFailed(StatusCode.InternalServerError, "Customer could not be updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result<Customer>.CreateFailed(StatusCode.InternalServerError, ex.ToString());
             }
 
-            return null;
+            return Result<Customer>.CreateSuccessful(customer);
         }
 
         public IQueryable<Customer> SearchCustomers(
@@ -107,7 +128,7 @@ namespace TinyCrm.Core.Services
 
         public bool UpdateCustomer(int id, UpdateCustomerOptions options)
         {
-            if (options == null)
+            if (options == null || id == 0)
             {
                 return false;
             }
@@ -122,7 +143,7 @@ namespace TinyCrm.Core.Services
                 customer.FirstName = options.FirstName;
                 customer.LastName = options.LastName;
                 customer.Email = options.Email;
-                customer.IsActive = options.IsActive;
+                customer.IsActive = options.IsActive.Value;
 
                 if (context_.SaveChanges() > 0)
                 {

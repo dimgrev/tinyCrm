@@ -6,7 +6,7 @@ namespace TinyCrm.Core.Services.Interfaces
 {
     public interface ICustomerService
     {
-        Customer CreateCustomer(
+        Result<Customer> CreateCustomer(
             CreateCustomerOptions options);
         IQueryable<Customer> SearchCustomers(
             SearchCustomerOptions options);

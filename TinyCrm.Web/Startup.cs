@@ -4,9 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TinyCrm.Core.Data;
+using TinyCrm.Core.Services;
+using TinyCrm.Core.Services.Interfaces;
 
 namespace TinyCrm.Web
 {
@@ -22,7 +26,12 @@ namespace TinyCrm.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TinyCrmDbContext>();
+
             services.AddControllersWithViews();
+            services.AddScoped<ICustomerService, CustomerService>();// Dependency Injection
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

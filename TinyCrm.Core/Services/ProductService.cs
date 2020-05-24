@@ -26,7 +26,7 @@ namespace TinyCrm.Core.Services
                 ProductId = options.ProductId,
                 Name = options.Name,
                 Description = options.Description,
-                Category = options.ProductCategory,
+                Category = options.ProductCategory.Value,
                 Price = options.Price,
             };
 

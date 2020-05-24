@@ -4,7 +4,7 @@ using TinyCrm.Core.Services.Options;
 
 namespace TinyCrm.Core.Services.Interfaces
 {
-    interface IOrderService
+    public interface IOrderService
     {
         Order CreateOrder(
             CreateOrderOptions options);

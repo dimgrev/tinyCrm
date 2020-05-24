@@ -1,0 +1,31 @@
+﻿@model TinyCrm.Core.Model.Customer
+@{
+    ViewData["Title"] = "Edit";
+
+}
+
+    <form method="post">
+        <h2>Edit info</h2>
+        <br />
+        <div class="form-group">
+            <label for="exampleInputFirstName1">FirstName:</label>
+            <input name="firstName" type="text" class="form-control" id="exampleInputFirstName1" placeholder="Enter your First Name" value="@Model.FirstName">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputLastName1">LastName: </label>
+            <input name="lastName" type="text" class="form-control" id="exampleInputLastName1" placeholder="Enter your Last Name" value="@Model.LastName">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address: </label>
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your Email" value="@Model.Email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputVatNumber1">VatNumber:</label>
+            <input name="vatNumber" type="text" class="form-control" id="exampleInputVatNumber1" placeholder="Enter your Vat Number" value="@Model.VatNumber">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>

@@ -1,4 +1,8 @@
-﻿@{
+﻿@using TinyCrm.Core.Model
+
+@model CPmodel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +10,60 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<table class="table thead-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Vat Number</th>
+            <th scope="col">Total Gross</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <th scope="row">@item.CustomerId</th>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.VatNumber</td>
+                <td>@item.TotalGross</td>
+                <td>
+                    <a class="nav-link" href="
+                       @Url.Action("GetById", "Customer", new { id = item.CustomerId })">
+                    Details</a>
+                </td>
+            </tr>
+         }
+     </tbody>
+</table>
+
+<h5>Total Customers: @Model.Customers.Count()</h5>
+<br />
+
+<table class="table thead-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <th scope="row">@item.ProductId</th>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>@item.Category</td>
+            </tr>
+        }
+    </tbody>
+</table>

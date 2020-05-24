@@ -14,7 +14,7 @@ namespace TinyCrm.Core.Model
         public string Phone { get; set; }
         public string VatNumber { get; set; }
         public decimal TotalGross { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public List<Order> Orders { get; set; }
 

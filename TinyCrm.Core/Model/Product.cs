@@ -9,7 +9,7 @@ namespace TinyCrm.Core.Model
         public DateTimeOffset Created { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public ProductCategory? Category { get; set; }
+        public ProductCategory Category { get; set; }
 
         public Product()
         {
